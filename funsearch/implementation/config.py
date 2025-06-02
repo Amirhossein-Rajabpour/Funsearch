@@ -18,7 +18,7 @@ import dataclasses
 from typing import Sequence
 
 # Safe mode is TRUE!!
-test_env = True
+test_env = False
 LOG_FILE = 'funsearch.log'
 TEST_LOG_FILE = 'funsearch_test.log'
 

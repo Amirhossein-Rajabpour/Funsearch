@@ -76,15 +76,17 @@ def main(specification: str, inputs: Sequence[Any], config: config_lib.Config, p
 
 # Spec copied from cant_stop/cant_stop.py.
 
-filepath = '../cant_stop/cant_stop.py'
+# filepath = '../cant_stop/cant_stop.py'
+filepath = '../karel_wide_maze/karel_wide_maze.py'
 with open(filepath, 'r') as file:
   _CANT_STOP_SPEC = file.read()
 
-prompt_filepath = '../cant_stop/cant_stop_prompt_spec_small.py'
+# prompt_filepath = '../cant_stop/cant_stop_prompt_spec_small.py'
+prompt_filepath = '../karel_wide_maze/karel_wide_maze_prompt_spec.py'
 with open(prompt_filepath, 'r') as file:
   _CANT_STOP_PROMPT_SPEC = file.read()
 
 if __name__ == '__main__':
   # The inputs field is the player to play against (0-3).
   # The prompt_spec field is what's passed to the sampler, the regular spec is what's used for evaluation.
-  main(_CANT_STOP_SPEC, inputs=(0, 1, 2), config=config_lib.Config(), prompt_spec=_CANT_STOP_PROMPT_SPEC)
+  main(_CANT_STOP_SPEC, inputs=(100,), config=config_lib.Config(), prompt_spec=_CANT_STOP_PROMPT_SPEC)  # input is the number of evaluations
