@@ -76,12 +76,10 @@ def main(specification: str, inputs: Sequence[Any], config: config_lib.Config, p
 
 # Spec copied from cant_stop/cant_stop.py.
 
-# filepath = '../cant_stop/cant_stop.py'
 filepath = '../karel_wide_maze/karel_wide_maze.py'
 with open(filepath, 'r') as file:
   _CANT_STOP_SPEC = file.read()
 
-# prompt_filepath = '../cant_stop/cant_stop_prompt_spec_small.py'
 prompt_filepath = '../karel_wide_maze/karel_wide_maze_prompt_spec.py'
 with open(prompt_filepath, 'r') as file:
   _CANT_STOP_PROMPT_SPEC = file.read()

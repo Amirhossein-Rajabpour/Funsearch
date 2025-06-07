@@ -4,7 +4,8 @@ import copy
 from typing import Union
 import numpy as np
 
-from environment.karel_env.base import BaseEnvironment
+# from environment.karel_env.base import BaseEnvironment
+from karel_wide_maze.base import BaseEnvironment
 
 MAX_API_CALLS = 1000000
 MAX_MARKERS_PER_SQUARE = 10

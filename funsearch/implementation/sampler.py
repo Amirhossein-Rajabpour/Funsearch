@@ -84,7 +84,7 @@ class LLM:
     def query(payload):
       # Remote inference.
       try:
-        response = requests.post(self.api_url, headers=self.headers, json=payload, timeout=300)
+        response = requests.post(self.api_url, headers=self.headers, json=payload, timeout=3000)
         return response.json()
       except requests.exceptions.Timeout:
         LOG("Timeout")
@@ -97,10 +97,8 @@ class LLM:
       res = query({"inputs": prompt, "parameters": {"do_sample": True, "max_new_tokens": 1000, "return_full_text": False, "stop": ["\ndef"]}, "stream": False})
     else:
       # Try to ignore code past the first function definition.
-      # res = query({"model": "starcoder2:15b", "prompt": prompt, "stream": False, "template": "{{ .Prompt }}", "options": {"stop": ["\ndef", "\nclass", "\n#", "\nimport"]}})
-      # res = query({"model": "deepseek-r1:32b", "prompt": prompt, "stream": False, "template": "{{ .Prompt }}", "options": {"stop": ["\ndef", "\nclass", "\n#", "\nimport"]}})
-      # Requires smaller prompt.
-      res = query({"model": "deepseek-coder-v2:16b", "prompt": prompt, "stream": False, "template": "{{ .Prompt }}", "options": {"num_ctx": 4096, "stop": ["\ndef", "\nclass", "\n#", "\nimport"]}})
+      # res = query({"model": "deepseek-coder-v2:16b", "prompt": prompt, "stream": False, "template": "{{ .Prompt }}", "options": {"num_ctx": 4096, "stop": ["\ndef", "\nclass", "\n#", "\nimport"]}})
+      res = query({"model": "qwen2.5-coder:32b", "prompt": prompt, "stream": False, "template": "{{ .Prompt }}", "options": {"num_ctx": 32768, "stop": ["\ndef", "\nclass", "\n#", "\nimport"]}})
     LOG("Complete")
     return extract_llm_output_hf(res) if config_lib.test_env else extract_llm_output(res)
 

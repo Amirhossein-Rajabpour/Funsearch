@@ -115,7 +115,8 @@ class ProgramsDatabase:
     island_id = np.random.randint(len(self._islands))
     # Check if the island has any programs.
     if self._best_program_per_island[island_id] is None:
-      return "return random.choice(game.available_moves())"
+      # return "return random.choice(game.available_moves())"
+      return "return [random.randint(0, 4) for _ in range(50)]"
     function = self._islands[island_id].get_code()
     return function.body
 

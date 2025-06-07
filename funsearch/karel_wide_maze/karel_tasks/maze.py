@@ -1,7 +1,21 @@
 import numpy as np
 
-from base import BaseTask
-from karel import KarelEnvironment
+from ..base import BaseTask
+from ..karel import KarelEnvironment
+
+
+import os
+import importlib.util
+
+
+utils_path = os.path.abspath(
+    os.path.join(__file__, "..", "..", "..", "implementation", "util.py")
+)
+spec = importlib.util.spec_from_file_location("util", utils_path)
+utils = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(utils)
+LOG = utils.LOG
+
 
 
 class Maze(BaseTask):
@@ -232,7 +246,7 @@ class MazeWideSparse(MazeWide):
         if karel_pos[0] == self.marker_position[0] and karel_pos[1] == self.marker_position[1]:
             terminated = True
             reward = 1.0
-            print("** Agent reached the goal!!!!")
+            # print("** Agent reached the goal!!!!")
         
         return terminated, reward
     
@@ -378,6 +392,9 @@ class MazeWideSparseAllInit(BaseTask):
 
         karel_pos = env.get_hero_pos()
         marker_pos = np.argwhere(env.state[6, :, :])
+
+        # print(f"** MazeWideSparseAllInit: karel_pos={karel_pos}, marker_pos={marker_pos}")
+        LOG(f"** MazeWideSparseAllInit: karel_pos={karel_pos}, marker_pos={marker_pos}")
         
         if len(marker_pos) > 0:
             marker_pos = marker_pos[0]  # (y, x)
